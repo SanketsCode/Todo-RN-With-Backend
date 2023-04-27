@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {Dispatch, SetStateAction, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {Todo} from '../types/props';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import axios from 'axios';
@@ -21,6 +21,12 @@ interface props {
 export default function EditTodo({todo, setEditMode, setTodos}: props) {
   const [todoId, setTodoId] = useState(todo.todo_id);
   const [description, setDescription] = useState(todo.description);
+
+  useEffect(() => {
+    setTodoId(todo.todo_id);
+    setDescription(todo.description);
+ },[todo]);
+
   const updateTodo = async () => {
     if (description == '') {
       ToastAndroid.show('Please add Some Text', ToastAndroid.SHORT);
